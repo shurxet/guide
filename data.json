@@ -1,0 +1,166 @@
+{
+    "list_contacts": [
+        {
+            "id": 1,
+            "first_name": "test_1",
+            "last_name": "test_1",
+            "organization": "test_1",
+            "patronymic": "test_1",
+            "personal_phone": "test_1",
+            "work_phone": "test_1"
+        },
+        {
+            "id": 2,
+            "first_name": "test_2",
+            "last_name": "test_2",
+            "organization": "test_2",
+            "patronymic": "test_2",
+            "personal_phone": "test_2",
+            "work_phone": "test_2"
+        },
+        {
+            "id": 3,
+            "first_name": "test_3",
+            "last_name": "test_3",
+            "organization": "test_3",
+            "patronymic": "test_3",
+            "personal_phone": "test_3",
+            "work_phone": "test_3"
+        },
+        {
+            "id": 4,
+            "first_name": "test_4",
+            "last_name": "test_4",
+            "organization": "test_4",
+            "patronymic": "test_4",
+            "personal_phone": "test_4",
+            "work_phone": "test_4"
+        },
+        {
+            "id": 5,
+            "first_name": "test_5",
+            "last_name": "test_5",
+            "organization": "test_5",
+            "patronymic": "test_5",
+            "personal_phone": "test_5",
+            "work_phone": "test_5"
+        },
+        {
+            "id": 6,
+            "last_name": "test_6",
+            "first_name": "test_6",
+            "patronymic": "test_6",
+            "organization": "test_6",
+            "work_phone": "test_6",
+            "personal_phone": "test_6"
+        },
+        {
+            "id": 7,
+            "last_name": "test_7",
+            "first_name": "test_7",
+            "patronymic": "test_7",
+            "organization": "test_7",
+            "work_phone": "test_7",
+            "personal_phone": "test_7"
+        },
+        {
+            "id": 8,
+            "last_name": "test_8",
+            "first_name": "test_8",
+            "patronymic": "test_8",
+            "organization": "test_8",
+            "work_phone": "test_8",
+            "personal_phone": "test_8"
+        },
+        {
+            "id": 9,
+            "last_name": "test_9",
+            "first_name": "test_9",
+            "patronymic": "test_9",
+            "organization": "test_9",
+            "work_phone": "test_9",
+            "personal_phone": "test_9"
+        },
+        {
+            "id": 10,
+            "last_name": "test_10",
+            "first_name": "test_10",
+            "patronymic": "test_10",
+            "organization": "test_10",
+            "work_phone": "test_10",
+            "personal_phone": "test_10"
+        },
+        {
+            "id": 11,
+            "last_name": "test_11",
+            "first_name": "test_11",
+            "patronymic": "test_11",
+            "organization": "test_11",
+            "work_phone": "test_11",
+            "personal_phone": "test_11"
+        },
+        {
+            "id": 12,
+            "last_name": "test_12",
+            "first_name": "test_12",
+            "patronymic": "test_12",
+            "organization": "test_12",
+            "work_phone": "test_12",
+            "personal_phone": "test_12"
+        },
+        {
+            "id": 13,
+            "last_name": "test_13",
+            "first_name": "test_13",
+            "patronymic": "test_13",
+            "organization": "test_13",
+            "work_phone": "test_13",
+            "personal_phone": "test_13"
+        },
+        {
+            "id": 14,
+            "last_name": "test_14",
+            "first_name": "test_14",
+            "patronymic": "test_14",
+            "organization": "test_14",
+            "work_phone": "test_14",
+            "personal_phone": "test_14"
+        },
+        {
+            "id": 15,
+            "last_name": "test_15",
+            "first_name": "test_15",
+            "patronymic": "test_15",
+            "organization": "test_15",
+            "work_phone": "test_15",
+            "personal_phone": "test_15"
+        },
+        {
+            "id": 16,
+            "last_name": "test_16",
+            "first_name": "test_16",
+            "patronymic": "test_16",
+            "organization": "test_16",
+            "work_phone": "test_16",
+            "personal_phone": "test_16"
+        },
+        {
+            "id": 17,
+            "last_name": "test_17",
+            "first_name": "test_17",
+            "patronymic": "test_17",
+            "organization": "test_17",
+            "work_phone": "test_17",
+            "personal_phone": "test_17"
+        },
+        {
+            "id": 18,
+            "last_name": "test_18",
+            "first_name": "test_18",
+            "patronymic": "test_18",
+            "organization": "test_18",
+            "work_phone": "test_18",
+            "personal_phone": "test_18"
+        }
+    ]
+}
