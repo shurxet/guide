@@ -1,23 +1,32 @@
 import json
 
 from itertools import compress
+from json import JSONDecodeError
 from pprint import pprint
 from typing import Generator
 
 path = 'data.json'
 
 
-def get_data() -> dict[list[dict[int, str, str, str, str, str, str]]]:
+def get_data() -> (dict[list[dict[int, str, str, str, str, str, str]]] | dict[str, FileNotFoundError] |
+                   dict[str, JSONDecodeError]):
     """
-    The get_data() function opens a json file, retrieves data from it, and returns a dict
-    :return:  -> dict[list[dict[int, str, str, str, str, str, str]]]
+    The get_data() function opens a json file, retrieves data from it, and returns a dict, as well as this function
+    handles possible errors and the program continues to work
+    :return:  -> dict[list[dict[int, str, str, str, str, str, str]]] | dict[str, FileNotFoundError] |
+                 dict[str, JSONDecodeError]
     """
-    with open(path, 'r', encoding='utf-8') as f:
-        data: dict[list[dict[int, str, str, str, str, str, str]]] = json.load(f)
-    return data
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data: dict[list[dict[int, str, str, str, str, str, str]]] = json.load(f)
+        return data
+    except FileNotFoundError as e:
+        return {'The file path is specified incorrectly': e}
+    except JSONDecodeError as e:
+        return {'Invalid JSON syntax': e}
 
 
-def portions_data() -> Generator | dict[str, set[Exception]]:
+def portions_data() -> Generator | dict[str, set[FileNotFoundError]] | dict[str, set[JSONDecodeError]]:
     """
     The portions_data() function opens a json file and uses a generator to return data in parts, saving RAM resources in
     cases where there will be a lot of data, as well as this function handles possible errors and the program continues
@@ -29,22 +38,27 @@ def portions_data() -> Generator | dict[str, set[Exception]]:
             data: dict = json.load(f)
         while True:
             yield from data["list_contacts"]
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
+    except FileNotFoundError as e:
+        return {'The file path is specified incorrectly': e}
+    except JSONDecodeError as e:
+        return {'Invalid JSON syntax': e}
 
 
-def save_data(data: dict | list[dict[int, str, str, str, str, str, str]]) -> dict[str, set[Exception]]:
+def save_data(data: dict | list[dict[int, str, str, str, str, str, str]]) -> (dict[str, FileNotFoundError] |
+                                                                              dict[str, JSONDecodeError]):
     """
     The save_data() function accepts new or updated dict data, saves it in a json file, and also handles possible errors
     and the program continues to work further
     :param data: save_data(data: dict | list[dict[int, str, str, str, str, str, str]])
-    :return: -> dict[str, set[Exception]]
+    :return: -> dict[str, FileNotFoundError] | dict[str, JSONDecodeError]
     """
     try:
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
+    except FileNotFoundError as e:
+        return {'The file path is specified incorrectly': e}
+    except JSONDecodeError as e:
+        return {'Invalid JSON syntax': e}
 
 
 def get_new_id() -> int:
@@ -60,12 +74,12 @@ def get_new_id() -> int:
     return new_id
 
 
-def add_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[Exception]]:
+def add_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[KeyError]]:
     """
     The add_data() function processes the new received data, generates the data in dict and adds it to a json file,
     passes the data to the save_data() function for processing to write to a json file and gives the new data to dict,
     as well as handles possible errors and the program continues to work further
-    :return: -> dict[int, str, str, str, str, str, str] | dict[str, set[Exception]]
+    :return: -> dict[int, str, str, str, str, str, str] | dict[str, set[KeyError]]
     """
     try:
         new_data: dict = {
@@ -87,15 +101,15 @@ def add_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[Except
         data["list_contacts"].append(new_data)
         save_data(data)
         return new_data
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
+    except KeyError as e:
+        return {'Missing "list_contacts" key in JSON data': {e}}
 
 
-def edit_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[Exception]]:
+def edit_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[ValueError]] | dict[str, set[KeyError]]:
     """
     The edit_data() function gets the necessary record by ID, updates the data in this record and returns the updated
     dict data, it also handles possible errors, and the program continues to work further
-    :return: -> dict[int, str, str, str, str, str, str] | dict[str, set[Exception]]
+    :return: -> dict[int, str, str, str, str, str, str] | dict[str, set[ValueError]] | dict[str, set[KeyError]]
     """
     try:
         user_input: int = int(input('введите id редактируемой записи:\n'))
@@ -111,15 +125,19 @@ def edit_data() -> dict[int, str, str, str, str, str, str] | dict[str, set[Excep
                     update_data[key]: str = user_input
         save_data(data)
         return update_data
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
+    except ValueError as e:
+        return {'The value that the user passes must be an integer': {e}}
+    except KeyError as e:
+        return {'Missing "list_contacts" key in JSON data': {e}}
 
 
-def by_id() -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[Exception]]:
+def by_id() -> (list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[ValueError]] |
+                dict[str, set[KeyError]]):
     """
     The by_id() function searches for a record by id and returns the found record dict it also handles possible errors,
     and the program continues to work further
-    :return: -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[Exception]]
+    :return: -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[ValueError]] |
+                dict[str, set[KeyError]]
     """
     try:
         user_input: int = int(input('введите id: \n'))
@@ -128,13 +146,14 @@ def by_id() -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[
         data_filter: list = list(compress(data["list_contacts"], items_bool))
         if len(data_filter) < 1:
             data_filter.append('записей не найдено')
-
         return data_filter
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
+    except ValueError as e:
+        return {'The value that the user passes must be an integer': {e}}
+    except KeyError as e:
+        return {'Missing "list_contacts" key in JSON data': {e}}
 
 
-def by_last_name() -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[Exception]]:
+def by_last_name() -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[KeyError]]:
     """
     The by_last_name() function searches for a record by last_name and returns the found record, it also handles
     possible errors, and the program continues to work further
@@ -147,7 +166,6 @@ def by_last_name() -> list[dict[int, str, str, str, str, str, str]] | list[str] 
         data_filter: list = list(compress(data["list_contacts"], items_bool))
         if len(data_filter) < 1:
             data_filter.append('записей не найдено')
-    except Exception as e:
-        return {"Что-то пошло не так": {e}}
-
-    return data_filter
+        return data_filter
+    except KeyError as e:
+        return {'Missing "list_contacts" key in JSON data': {e}}
