@@ -140,11 +140,14 @@ def by_last_name() -> list[dict[int, str, str, str, str, str, str]] | list[str] 
     possible errors, and the program continues to work further
     :return: -> list[dict[int, str, str, str, str, str, str]] | list[str] | dict[str, set[Exception]]
     """
-    user_input: str = str(input('введите last_name: \n'))
-    data: dict = get_data()
-    items_bool: list = list(map(lambda x: user_input == x["last_name"], data["list_contacts"]))
-    data_filter: list = list(compress(data["list_contacts"], items_bool))
-    if len(data_filter) < 1:
-        data_filter.append('записей не найдено')
+    try:
+        user_input: str = str(input('введите last_name: \n'))
+        data: dict = get_data()
+        items_bool: list = list(map(lambda x: user_input == x["last_name"], data["list_contacts"]))
+        data_filter: list = list(compress(data["list_contacts"], items_bool))
+        if len(data_filter) < 1:
+            data_filter.append('записей не найдено')
+    except Exception as e:
+        return {"Что-то пошло не так": {e}}
 
     return data_filter
